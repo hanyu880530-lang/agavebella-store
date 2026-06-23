@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Agave Bella</title></head>
+<body>
+<style>
+body{margin:0;font-family:sans-serif}
+.entry{background:linear-gradient(#0f766e,#065f46);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;color:#fff;text-align:center}
+.entry h1{font-size:40px;margin:0 0 4px}
+.entry .sub{font-size:14px;color:#d1fae5;margin-bottom:30px}
+.row{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+.box{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:16px;padding:28px 20px;width:200px;text-align:center;text-decoration:none;color:#fff;display:block}
+.box:hover{background:rgba(255,255,255,.2)}
+.box .icon{font-size:50px;display:block;margin-bottom:8px}
+.box .nm{font-size:18px;font-weight:700}
+.box .de{font-size:12px;color:#d1fae5;margin-top:2px}
+.store{display:none}
+.store.show{display:block}
+.top{background:#fff;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #ddd;position:sticky;top:0}
+.top .lg{font-weight:700;font-size:16px;color:#065f46}
+.top a{background:#065f46;color:#fff;padding:5px 12px;border-radius:6px;text-decoration:none;font-size:12px}
+.banner{background:linear-gradient(#065f46,#047857);padding:24px 16px;text-align:center;color:#fff}
+.banner h2{margin:0 0 4px;font-size:22px}
+.banner p{margin:0;font-size:13px;color:#d1fae5}
+.products{max-width:1000px;margin:0 auto;padding:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.card{background:#fff;border:1px solid #eee;border-radius:10px;overflow:hidden}
+.card img{width:100%;aspect-ratio:1;object-fit:cover;background:#eee}
+.card .bd{padding:8px}
+.card .bd .nn{font-size:13px;font-weight:600}
+.card .bd .dd{font-size:11px;color:#666;margin:2px 0 4px}
+.card .bd .pr{font-size:15px;font-weight:700;color:#065f46}
+.card .bd .ol{font-size:11px;color:#999;text-decoration:line-through;margin-left:4px}
+.foot{background:#064e3b;padding:20px;text-align:center}
+.foot a{color:#a7f3d0;text-decoration:none;font-size:13px}
+@media(max-width:500px){
+  .row{flex-direction:column;align-items:center}
+  .box{width:100%;max-width:300px}
+  .grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+
+<div class="entry" id="homePage">
+  <h1>🌵 Agave Bella</h1>
+  <p class="sub">Chọn thị trường · ជ្រើសរើសទីផ្សារ</p>
+  <div class="row">
+    <a class="box" href="#" onclick="showVN();return false">
+      <span class="icon">🇻🇳</span>
+      <span class="nm">Việt Nam</span>
+      <span class="de">Mỹ phẩm & Đồ gia dụng</span>
+    </a>
+    <a class="box" href="#" onclick="showKH();return false">
+      <span class="icon">🇰🇭</span>
+      <span class="nm">កម្ពុជា</span>
+      <span class="de">គ្រឿងសំអាង & ទំនិញប្រើប្រាស់</span>
+    </a>
+  </div>
+</div>
+
+<div class="store" id="vnPage">
+  <div class="top">
+    <span class="lg">🌵 Agave Bella</span>
+    <a href="javascript:backHome()">← Back</a>
+  </div>
+  <div class="banner"><h2>🇻🇳 Agave Bella Việt Nam</h2><p>Mỹ phẩm & Đồ gia dụng giá tốt</p></div>
+  <div class="products"><div class="grid" id="vnGrid"></div></div>
+  <div class="foot"><a href="javascript:backHome()">← Change market</a></div>
+</div>
+
+<div class="store" id="khPage">
+  <div class="top">
+    <span class="lg">🌵 Agave Bella</span>
+    <a href="javascript:backHome()">← Back</a>
+  </div>
+  <div class="banner"><h2>🇰🇭 Agave Bella Cambodia</h2><p>Beauty & Daily Essentials at Low Prices</p></div>
+  <div class="products"><div class="grid" id="khGrid"></div></div>
+  <div class="foot"><a href="javascript:backHome()">← Change market</a></div>
+</div>
+
+<script>
+var allProducts = {
+  vn:[
+    ["Serum Vitamin C","Tinh chất vitamin C, làm sáng da",149000,199000,"https://via.placeholder.com/300/0ea5e9/fff?text=Serum"],
+    ["Kem Chống Nắng SPF50+","Chống nắng, không nhờn",99000,139000,"https://via.placeholder.com/300/10b981/fff?text=SPF50"],
+    ["Dầu Tẩy Trang","Dầu tẩy trang thiên nhiên",89000,null,"https://via.placeholder.com/300/f59e0b/fff?text=Oil"],
+    ["Sữa Rửa Mặt Trà Xanh","Chiết xuất trà xanh",69000,89000,"https://via.placeholder.com/300/8b5cf6/fff?text=Wash"],
+    ["Mặt Nạ Giấy 10 Miếng","Cấp ẩm, làm sáng da",49000,79000,"https://via.placeholder.com/300/f43f5e/fff?text=Mask"],
+    ["Nước Hoa Mini 10ml","Nhiều mùi hương",59000,null,"https://via.placeholder.com/300/ec4899/fff?text=Perfume"],
+    ["Kem Dưỡng Ẩm HA","Hyaluronic Acid & Ceramide",119000,159000,"https://via.placeholder.com/300/06b6d4/fff?text=Cream"],
+    ["Set Cọ 12 Cây","Bộ cọ chuyên nghiệp",129000,179000,"https://via.placeholder.com/300/6366f1/fff?text=Brushes"],
+    ["Sáp Tẩy Lông","Sáp tự nhiên",79000,null,"https://via.placeholder.com/300/a855f7/fff?text=Wax"],
+    ["Bông Tẩy Trang","Cotton Nhật, 100 miếng",29000,39000,"https://via.placeholder.com/300/78716c/fff?text=Cotton"]
+  ],
+  kh:[
+    ["Vitamin C Serum","Vitamin C, reduces dark spots",8.99,11.99,"https://via.placeholder.com/300/0ea5e9/fff?text=Serum"],
+    ["SPF50+ Sunscreen","Broad spectrum",6.99,9.99,"https://via.placeholder.com/300/10b981/fff?text=SPF50"],
+    ["Cushion Foundation","3 shades, moisturizing",9.99,13.99,"https://via.placeholder.com/300/f59e0b/fff?text=Cushion"],
+    ["Lip Tint 6 Colors","Long-lasting matte",3.99,5.99,"https://via.placeholder.com/300/ec4899/fff?text=Tint"],
+    ["Face Mask 10pcs","Hydrating",3.49,5.49,"https://via.placeholder.com/300/f43f5e/fff?text=Mask"],
+    ["Sponge Set 4pcs","Soft, non-absorbent",2.99,4.99,"https://via.placeholder.com/300/6366f1/fff?text=Sponge"],
+    ["Hair Set 20pcs","Ties & clips",1.99,3.49,"https://via.placeholder.com/300/78716c/fff?text=Hair"],
+    ["Eyelash Curler","Silicone pad",2.49,null,"https://via.placeholder.com/300/a855f7/fff?text=Lash"],
+    ["Nail Stickers 50pcs","Many designs",1.49,2.99,"https://via.placeholder.com/300/06b6d4/fff?text=Nail"],
+    ["Hair Removal Cream","Gentle formula",4.99,null,"https://via.placeholder.com/300/8b5cf6/fff?text=Hair"]
+  ]
+};
+
+function fmtVN(n){return n.toLocaleString()+'₫'}
+function fmtKH(n){return '$'+n.toFixed(2)}
+
+function showVN(){
+  document.getElementById('homePage').style.display='none';
+  document.getElementById('vnPage').style.display='block';
+  document.getElementById('khPage').style.display='none';
+  var g=document.getElementById('vnGrid');
+  var h='';
+  for(var i=0;i<allProducts.vn.length;i++){
+    var p=allProducts.vn[i];
+    h+='<div class="card"><img src="'+p[4]+'"><div class="bd"><div class="nn">'+p[0]+'</div><div class="dd">'+p[1]+'</div><div><span class="pr">'+fmtVN(p[2])+'</span>';
+    if(p[3]) h+='<span class="ol">'+fmtVN(p[3])+'</span>';
+    h+='</div></div></div>';
+  }
+  g.innerHTML=h;
+}
+
+function showKH(){
+  document.getElementById('homePage').style.display='none';
+  document.getElementById('khPage').style.display='block';
+  document.getElementById('vnPage').style.display='none';
+  var g=document.getElementById('khGrid');
+  var h='';
+  for(var i=0;i<allProducts.kh.length;i++){
+    var p=allProducts.kh[i];
+    h+='<div class="card"><img src="'+p[4]+'"><div class="bd"><div class="nn">'+p[0]+'</div><div class="dd">'+p[1]+'</div><div><span class="pr">'+fmtKH(p[2])+'</span>';
+    if(p[3]) h+='<span class="ol">'+fmtKH(p[3])+'</span>';
+    h+='</div></div></div>';
+  }
+  g.innerHTML=h;
+}
+
+function backHome(){
+  document.getElementById('homePage').style.display='flex';
+  document.getElementById('vnPage').style.display='none';
+  document.getElementById('khPage').style.display='none';
+}
+</script>
+</body>
+</html>
